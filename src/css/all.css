@@ -1,0 +1,80 @@
+.headerdiv{
+    background-color: rgb(11, 11, 11);
+    color: aliceblue;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding-left: 15px;
+    padding-top: 5px;
+}
+
+.footerdiv{
+    background-color: rgb(11, 11, 11);
+    color: aliceblue;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: small;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-top: 1rem;
+}
+
+.sideimage{
+    box-shadow: 10px 10px 5px rgb(233, 236, 237);
+    margin-top: 1rem;
+    border-radius: 10px;
+}
+
+.sidears{
+    position: fixed;
+    right: 0;
+    height: 100%;
+    color: aliceblue;
+    font-size: larger;
+    font-weight: bolder;
+    width: 16%;
+    
+}
+
+.genrediv{
+    background-color: rgb(74, 129, 223);
+    height: 100%;
+    width: 5rem;
+    
+}
+
+.authordiv{
+    background-color: rgb(199, 121, 230);
+    height: 100%;
+    width: 5rem;
+}
+
+.booksdiv{
+    background-color: rgb(105, 226, 239);
+    height: 100%;
+    width: 5rem;
+}
+
+.sidebarlink{
+    text-decoration: none;
+    color: aliceblue;
+    
+}
+
+.leftsidebars{
+    position: fixed;
+    left: 0;
+    height: 100%;
+    color: aliceblue;
+    font-size: medium;
+    width: 16%;
+    background-color: rgb(11, 11, 11);
+}
+
+.welcomemsg{
+    padding: 1rem;
+    font-size: smaller;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.logoutbtn{
+    border-radius: 5px;
+}

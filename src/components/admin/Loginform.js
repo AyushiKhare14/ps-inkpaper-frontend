@@ -54,7 +54,7 @@ function Loginform() {
 </div>
 
 <div className="d-flex mt-2 justify-content-around text-secondary loginoptions">
-    <div><input type="checkbox" onClick={showPassword} /><small>Show Password</small></div>
+    <div><input type="checkbox" onClick={showPassword} /><small> Show Password</small></div>
     <div><small>Forgot Password?</small></div>
 </div>
 

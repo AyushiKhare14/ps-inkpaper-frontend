@@ -14,11 +14,10 @@ function GenreList(props) {
   let [genreName, setGenreName] = useState("");
   let [editStat, setEditStat] = useState(false);
 
-  console.log(props.genreAddStatus)
+ 
 
   const enableEdit = (id) =>{
     setEditId(editId = id)
-    
   }
 
 
@@ -27,23 +26,35 @@ function GenreList(props) {
     const responseData = await fetch("http://localhost:3000/api/genre");
    
     const genres =  await responseData.json();
+
     
     setData(data = genres);
-
+    //console.log(props.sortGenre==1) 
+    if (props.sortGenre==1){
+      //setData(data = genres);
+      sortData(data);
+    }
+    else if (props.sortGenre==2){
+      sortDataReverse(data);
+    }
+    else{
+      setData(data = genres);
+    }
   }
-
 
 
   const handleGenreChange = (e)=>{
    
       setGenreName(genreName = e.target.value)
-      //setGenreName({ ...genreName, value: e.target.value });
-      setEditStat(true);
+     
+      if (genreName==="")
+        setEditStat(false);
+      else{
+        setEditStat(true);
+      }
     }
     
    
-  
-
   const updateGenre = (id) => {
 
     if(editStat){
@@ -55,12 +66,6 @@ function GenreList(props) {
         const bodyData = {
             "genre_name" : genreName,
         }
-        
-        editGenre(id, bodyData);
-        // setEditId(editId=0);
-        // setEditStat(editStat=false);
-
-        /////////////////////
 
         fetch("http://localhost:3000/api/genre/" + id, {
           method: "PUT",
@@ -70,24 +75,17 @@ function GenreList(props) {
         })
         .then(response => {
           if (response.ok) {
-          response.json()}
+            setEditId(editId=0);
+            setEditStat(editStat=false);
+          }
           else{
-              throw new Error('Partially filled form cannot be submitted!');
+              throw response;
           }
       }) 
-        .then(json => {
-          setEditId(editId=0);
-          setEditStat(editStat=false);
-          //alert("Genre Updated Successfully");
-        })
         .catch(err => {
-  
           alert(err);
         }); 
-      
-        
-        
-      }
+    }
       else{
         setEditId(editId=0);
         setEditStat(editStat=false);}
@@ -96,20 +94,28 @@ function GenreList(props) {
   const deleteGenre = async (id)=>{
      await fetch('http://localhost:3000/api/genre/' + id, { method: 'DELETE' });
      setDelStat(Math.random())
-     
-
   }
   
     useEffect(() => { 
       console.log("inside use")
       getAllGenres()
+     
     },[ delStat, props, editStat])
 
 
+  const sortData = (data) =>{
+    data.sort(function(a, b) {
+      return a.genre_name.localeCompare(b.genre_name);
+    });
+  }
+  const sortDataReverse = (data) =>{
+    data.sort(function(a, b) {
+      return b.genre_name.localeCompare(a.genre_name);
+    });}
 
     // Getting searched genre name
 
-    let searchedData = data.filter(genre => {
+      let searchedData = data.filter(genre => {
       let genreName = genre.genre_name.toUpperCase();
       let toSearch = props.search.toUpperCase();
       if(genreName.includes(toSearch)){
@@ -124,7 +130,9 @@ function GenreList(props) {
       
       <div className='d-flex genretext' key={genre.genre_id}>
          
-        {editId == genre.genre_id ?
+        {editId == genre.genre_id 
+        
+      ?
 
       <div className='d-flex flex-fill justify-content-between mt-1'>
         <div className='flex-fill ms-4 '>
@@ -154,11 +162,9 @@ function GenreList(props) {
      {
       props.search 
       ? searchedData.map(genre => renderGenres(genre))
-      :data.map(genre => renderGenres(genre)) 
+      :   data.map(genre => renderGenres(genre)) 
         
      }
-    
-
     </div>
   )
 }

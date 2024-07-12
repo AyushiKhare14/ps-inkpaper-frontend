@@ -6,15 +6,15 @@ import Booksidebar from './Booksidebar'
 function Rightsidebar() {
   return (
     <div className='row d-flex  sidears'>
-        <div className='flex-fill col-sm-4'>
+        <div className='col-sm-4'>
             <Genresidebar />
         </div>
         
-        <div className='flex-fill  col-sm-4'>
+        <div className=' col-sm-4'>
             <Authorsidear />
         </div>
         
-        <div className='flex-fill  col-sm-4'>
+        <div className=' col-sm-4'>
             <Booksidebar />
         </div>
     </div>

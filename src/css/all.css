@@ -38,26 +38,34 @@
     font-weight: bolder;
     width: 16%;
     
+    
 }
 
 .genrediv{
     background-color: rgb(74, 129, 223);
     height: 100%;
-    
-    
+}
+
+.genrediv:hover{
+    background-color: rgb(53, 95, 168);
 }
 
 .authordiv{
     background-color: rgb(199, 121, 230);
     height: 100%;
-    width: 100%;
-    
+}
+
+.authordiv:hover{
+    background-color: rgb(121, 72, 141);
 }
 
 .booksdiv{
     background-color: rgb(105, 226, 239);
     height: 100%;
-    
+}
+
+.booksdiv:hover{
+    background-color: rgb(51, 111, 118);
 }
 
 .sidebarlink{
@@ -118,4 +126,12 @@
 
 .genretext:hover{
     background-color: rgb(247, 233, 224);
+}
+
+.headerdiv > h3{
+    text-decoration: none;
+}
+
+.homelink{
+    
 }

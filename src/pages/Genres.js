@@ -9,6 +9,8 @@ import { useState } from 'react'
 function Genres() {
   let [search, setSearch] = useState("");
   let [genreAddStatus, setGenreAddStatus] = useState("");
+  let [sortGenre, setSortGenre] = useState(0);
+
   return (
     <>
       <div className='genres d-flex flex-column'>
@@ -22,11 +24,11 @@ function Genres() {
           .....
         </div>
         <div className=''>
-          <Genresearchandfilter setSearch={setSearch}/>
+          <Genresearchandfilter setSearch={setSearch} setSortGenre={setSortGenre}/>
         </div>
         {/* <hr></hr> */}
         <div>
-          <GenreList genreAddStatus={genreAddStatus} search={search}/>
+          <GenreList genreAddStatus={genreAddStatus} search={search} sortGenre={sortGenre}/>
         </div>
 
       </div>

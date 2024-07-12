@@ -4,49 +4,42 @@ import { BsFillPersonLinesFill } from "react-icons/bs";
 import { MdCategory } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { IoHomeSharp } from "react-icons/io5";
+import { useLocation } from 'react-router-dom';
 
 function Displaycards() {
+    const location = useLocation()
   return (
-    <div>
-
-        <div className="row justify-content-around">
-            {/* <div className="col-sm-1 d-flex justify-content-center align-items-center">
-                <Link to="/adminhomepage/home"><IoHomeSharp color='black' size={30}/></Link>
-            </div> */}
-        <div className="col-sm-3">
-            <div className="card text-center">
-            <div className="card-body">
-                {/* <h5 className="card-title">Special title treatment</h5> */}
-                <p className="card-text"><MdCategory /> 25 &nbsp;&nbsp;&nbsp;&nbsp;
-                <Link to="genres" className="btn btn-warning">Manage Genres</Link>
-                </p>
-            </div>
-            </div>
+    <div className='d-flex justify-content-center bg-dark'>
+    <ul className="nav nav-tabs bg-dark flex-fill">
+        
+        <div>
+        <li className="nav-item">
+            <Link className={`nav-link ${location.pathname.includes("genres") ?"active" : "text-light"} `} aria-current="page" to="genres">Manage Genres</Link>
+        </li>
         </div>
-        <div className="col-sm-3">
-            <div className="card text-center">
-            <div className="card-body">
-                {/* <h5 className="card-title">Special title treatment</h5> */}
-                <p className="card-text"><BsFillPersonLinesFill /> 55&nbsp;&nbsp;&nbsp;&nbsp;
-                <Link to="authors" className="btn btn-warning">Manage Authors</Link>
-                </p>
-            </div>
-            </div>
+        <div>
+        <li className="nav-item">
+            <Link className={`nav-link ${location.pathname.includes("authors") ?"active" : "text-light"} `}   to="authors">Manage Authors</Link>
+        </li>
         </div>
-        <div className="col-sm-3">
-            <div className="card text-center">
-            <div className="card-body">
-                {/* <h5 className="card-title">Special title treatment</h5> */}
-                <p className="card-text"><ImBooks /> 430&nbsp;&nbsp;&nbsp;&nbsp;
-                <Link to="books" className="btn btn-warning">Manage Books</Link>
-                </p>
-            </div>
-            </div>
+        <div>
+        <li className="nav-item">
+            <Link className={`nav-link ${location.pathname.includes("books") ?"active" : "text-light"} `} to="books">Manage Books</Link>
+        </li>
         </div>
+        <div>
+        <li className="nav-item homelink">
+            <Link className={`nav-link ${location.pathname.includes("/home") ?"active" : "text-light"} `} to="home">Home</Link>
+        </li>
         </div>
+        
+    </ul>
             
     </div>
   )
 }
 
 export default Displaycards
+
+
+

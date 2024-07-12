@@ -10,9 +10,9 @@ function Displaycards() {
     <div>
 
         <div className="row justify-content-around">
-            <div className="col-sm-1 d-flex justify-content-center align-items-center">
+            {/* <div className="col-sm-1 d-flex justify-content-center align-items-center">
                 <Link to="/adminhomepage/home"><IoHomeSharp color='black' size={30}/></Link>
-            </div>
+            </div> */}
         <div className="col-sm-3">
             <div className="card text-center">
             <div className="card-body">

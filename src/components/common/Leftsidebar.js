@@ -20,12 +20,12 @@ function Leftsidebar() {
     let todayDate = `${monthinwords} ${day}, ${weekdayinwords}`;
 
   return (
-    <div className='leftsidebars'>
-        <div className='d-flex flex-column align-items-center'>
+    
+        <div className='leftsidebars d-flex flex-column align-items-center h-100'>
             
             <div className='pt-5 pb-2'>
                 <Link to="/adminhomepage/home">
-             <img src={adminlogo}/>
+             <img src={adminlogo} className='img-fluid'/>
                 </Link>
             </div>
 
@@ -49,7 +49,7 @@ function Leftsidebar() {
 
         </div>
         
-    </div>
+    
   )
 }
 

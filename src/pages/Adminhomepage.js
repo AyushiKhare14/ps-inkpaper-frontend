@@ -1,13 +1,11 @@
 import React from 'react'
 import Header from '../components/common/Header'
 import Footer from '../components/common/Footer'
-import Genresidebar from '../components/common/Genresidebar'
-import Authorsidear from '../components/common/Authorsidear'
-import Booksidebar from '../components/common/Booksidebar'
 import Leftsidebar from '../components/common/Leftsidebar'
 import { Outlet } from 'react-router-dom'
 import Displaycards from '../components/admin/Displaycards'
 import { useLocation } from 'react-router-dom';
+import Rightsidebar from '../components/common/Rightsidebar'
 
 
 function Adminhomepage() {
@@ -15,42 +13,36 @@ function Adminhomepage() {
     // console.log(location.pathname)
   return (
     <>
-        <div>
+        <div className='col-sm-12'>
             <Header />
         </div>
-
-        <div className='d-flex justify-content-around row'>
+        <div className='container'>
+        <div className='row h-100' >
+        
             {/* Left side bar */}
-            <div className=''>
+            <div className='col-sm-2 d-none d-sm-block' >
                 <Leftsidebar />
             </div>
 
             {/* Middle section that will change. */}
-            <div className='col-sm-8 mt-4'>
+            <div className='col-12 col-sm-8 mt-4' >
                 <Displaycards/>
-                <div className='m-4'>
+                <hr></hr>
+                <div className='col-12 '>
                     <Outlet/>
                 </div>
             </div>
 
             {/* Right side bars */}
-            <div className='d-flex sidears'>
-                <div>
-                    <Genresidebar />
-                </div>
+            
+            <div className=' d-flex col-sm-2  d-none d-sm-block ' >
+                <Rightsidebar />
                 
-                <div>
-                    <Authorsidear />
-                </div>
-                
-                <div>
-                    <Booksidebar />
-                </div>
-
             </div>
         </div>
-
-
+        </div>
+        
+        
         <div>
             <Footer />
         </div>

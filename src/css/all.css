@@ -4,6 +4,12 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     padding-left: 15px;
     padding-top: 5px;
+    
+}
+
+.headermsg{
+    text-decoration: none;
+    color: aliceblue;
 }
 
 .footerdiv{
@@ -37,20 +43,21 @@
 .genrediv{
     background-color: rgb(74, 129, 223);
     height: 100%;
-    width: 5rem;
+    
     
 }
 
 .authordiv{
     background-color: rgb(199, 121, 230);
     height: 100%;
-    width: 5rem;
+    width: 100%;
+    
 }
 
 .booksdiv{
     background-color: rgb(105, 226, 239);
     height: 100%;
-    width: 5rem;
+    
 }
 
 .sidebarlink{
@@ -77,4 +84,38 @@
 
 .logoutbtn{
     border-radius: 5px;
+}
+
+.homepage{
+    margin-top: 2rem;
+    margin-left: 3rem;
+}
+
+.genres{
+    /* width: 50%; */
+}
+
+.genreheader{
+    width: 100%;
+    background-color: black;
+    color: aliceblue;
+    font-size: larger;
+    font-weight: bolder;
+
+}
+
+.divider{
+    background-color: black;
+    width: 100%;
+    font-size: x-small;
+    color: black;
+}
+
+.genretext{
+    font-size: medium;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.genretext:hover{
+    background-color: rgb(247, 233, 224);
 }

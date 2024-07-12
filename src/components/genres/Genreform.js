@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react'
-// import useFetch from '../../utils/useFetch'
-import submitGenres from '../../utils/submitGenres';
+import React, { useState } from 'react'
 
 function Genreform({setGenreAddStatus}) {
   let [genreName, setGenreName] = useState("");
@@ -19,9 +17,6 @@ function Genreform({setGenreAddStatus}) {
     const bodyData = {
         "genre_name" : genreName,
     }
-    // submitGenres(bodyData);
-    // setGenreName("")
-    // setGenreAddStatus("Hello"+ Math.random())
 
     ////////////////
     fetch("http://localhost:3000/api/genre", {

@@ -2,11 +2,10 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import { AiFillEdit } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
-import editGenre from '../../utils/editGenre';
-import { useNavigate } from "react-router-dom";
+
 
 function GenreList(props) {
-  const navigate = useNavigate();
+  
 
   let [data, setData] = useState([]);
   let [editId, setEditId] = useState(0);
@@ -29,9 +28,9 @@ function GenreList(props) {
 
     
     setData(data = genres);
-    //console.log(props.sortGenre==1) 
+    
     if (props.sortGenre==1){
-      //setData(data = genres);
+      
       sortData(data);
     }
     else if (props.sortGenre==2){

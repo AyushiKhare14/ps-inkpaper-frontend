@@ -43,7 +43,7 @@ function Adminhomepage() {
         </div>
         
         
-        <div>
+        <div >
             <Footer />
         </div>
     </>

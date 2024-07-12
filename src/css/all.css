@@ -16,7 +16,7 @@
     background-color: rgb(11, 11, 11);
     color: aliceblue;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: small;
+    font-size: x-small;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -103,7 +103,7 @@
     /* width: 50%; */
 }
 
-.genreheader{
+.genreheader, .authorheader{
     width: 100%;
     background-color: black;
     color: aliceblue;
@@ -132,6 +132,6 @@
     text-decoration: none;
 }
 
-.homelink{
-    
+.adminnameinput{
+    width: 100%;
 }

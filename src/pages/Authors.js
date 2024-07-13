@@ -20,13 +20,12 @@ function Authors() {
         <div className='mt-2'>
           <Authorform setAuthorAddStatus={setAuthorAddStatus}/>
         </div>
-        <div className='divider mt-2'>
-          .....
-        </div>
+        <div className='divider mt-2'></div>
         <div className=''>
           <Authorsearchandfilter setSearch={setSearch} setSortAuthor={setSortAuthor}/>
         </div>
-        {/* <hr></hr> */}
+        <div className='divider mt-2'></div>
+        <hr></hr>
         <div>
           <AuthorList authorAddStatus={authorAddStatus} search={search} sortAuthor={sortAuthor}/>
         </div>

@@ -6,8 +6,9 @@ function Home() {
   return (
     <div className='homepage'>
       <h3>Hello Admin!</h3>
-      <small>"A book is a garden, an orchard, a storehouse, a party, a company by the way, a counselor, a multitude of counselors." – Charles Baudelaire</small>
-
+      <div className='divider mt-2 mb-2'></div>
+      <p className='text-center'>"A book is a garden, an orchard, a storehouse, a party, a company by the way, a counselor, a multitude of counselors." – Charles Baudelaire</p>
+      <div className='divider mt-2'></div>
       <div className='mt-4'>
       <h5>Assignments</h5>
       <FaPenNib />&nbsp;&nbsp;<Link to="">Books to add/update/delete.</Link><br></br>

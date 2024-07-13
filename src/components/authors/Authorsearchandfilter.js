@@ -1,6 +1,9 @@
 import React from 'react'
 import { FaSortAlphaDown } from "react-icons/fa";
 import { useState } from 'react';
+import { FcAlphabeticalSortingAz } from "react-icons/fc";
+import { FcAlphabeticalSortingZa } from "react-icons/fc";
+import { MdOutlineInsertChartOutlined } from "react-icons/md";
 
 function Authorsearchandfilter({setSearch, setSortAuthor}) {
     let [clickCounter, setClickCounter] = useState(0);
@@ -32,8 +35,8 @@ function Authorsearchandfilter({setSearch, setSortAuthor}) {
       <input  type='text' placeholder='Search Author by name or description...' className="form-control" onInput={handleSearch} />
       </div>
       <div className='ms-2 me-2'>
-        <FaSortAlphaDown size={25} onClick={handleSort} />    
-       </div>
+      {clickCounter == 0 ? <FcAlphabeticalSortingAz size={25} onClick={handleSort}/> : (clickCounter==1 ? <FcAlphabeticalSortingZa size={25} onClick={handleSort}/> : <MdOutlineInsertChartOutlined size={25} onClick={handleSort} color='grey'/>)}
+      </div>
 
     </div>
    

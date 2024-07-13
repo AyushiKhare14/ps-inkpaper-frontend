@@ -117,15 +117,21 @@
     width: 100%;
     font-size: x-small;
     color: black;
+    height: 1vh;
 }
 
 .genretext{
     font-size: medium;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family:Arial, Helvetica, sans-serif;
+    text-align: justify;
+    border: 1px solid rgb(226, 222, 222);
+    margin: 3px;
+    border-radius: 5px;
+
 }
 
 .genretext:hover{
-    background-color: rgb(247, 233, 224);
+    background-color: rgb(250, 243, 238);
 }
 
 .headerdiv > h3{
@@ -134,4 +140,12 @@
 
 .adminnameinput{
     width: 100%;
+}
+
+
+.inputfield{
+    border-radius: 5px ;
+    border: 1px solid rgb(180, 179, 179);
+    width: 15vw;
+    height: 4vh;
 }

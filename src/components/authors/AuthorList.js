@@ -163,8 +163,8 @@ function AuthorList(props) {
         // </div>
 
         <div className='row mt-4'>
-            <div className='col-sm-2 '>
-                <input type="text" defaultValue={author.name} size={6} onChange={handleNameChange}  name="author" className='form-control '  />
+            <div className='col-sm-2'>
+                <input type="text" defaultValue={author.name} size={6} onChange={handleNameChange}  name="author" className='form-control'  />
             </div>
             <div className='col-sm-8 '>
                 <textarea defaultValue={author.biography} onChange={handleBioChange} name="bio" className='form-control' ></textarea>
@@ -179,11 +179,11 @@ function AuthorList(props) {
         </div>
                 
         :
-        <div className='row mt-4'>
-            <div className='col-sm-2 '>
-                {author.name}
+        <div className='row mt-2 mb-2'>
+            <div className='col-sm-2'>
+            &nbsp; {author.name}
             </div>
-            <div className='col-sm-8 '>
+            <div className='col-sm-8'>
                 {author.biography}
             </div>
             <div className='col-sm-1'>

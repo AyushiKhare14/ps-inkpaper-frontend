@@ -145,11 +145,13 @@ function GenreList(props) {
           <div className='flex-fill ms-4 '>{
             genre.genre_name
           }</div>
+          
+
           <div className='m-1'>
             <AiFillEdit size={20} onClick={()=>{enableEdit(genre.genre_id)}}/>
           </div>
           <div className='m-1'>
-            <MdDelete size={20} onClick={()=>{deleteGenre(genre.genre_id)}} />
+            <MdDelete size={20}  onClick={()=>{deleteGenre(genre.genre_id)}} />
           </div>
         </div>
       }

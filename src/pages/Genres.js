@@ -20,13 +20,12 @@ function Genres() {
         <div className='mt-2'>
           <Genreform setGenreAddStatus={setGenreAddStatus}/>
         </div>
-        <div className='divider mt-2'>
-          .....
-        </div>
+        <div className='divider mt-2'></div>
         <div className=''>
           <Genresearchandfilter setSearch={setSearch} setSortGenre={setSortGenre}/>
         </div>
-        {/* <hr></hr> */}
+        <div className='divider mt-2'></div>
+        <hr></hr>
         <div>
           <GenreList genreAddStatus={genreAddStatus} search={search} sortGenre={sortGenre}/>
         </div>

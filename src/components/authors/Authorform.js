@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-function Authorform(setAuthorAddStatus) {
+function Authorform({setAuthorAddStatus}) {
     let [authorName, setAuthorName] = useState("");
     let [authorBio, setAuthorBio] = useState("");
 

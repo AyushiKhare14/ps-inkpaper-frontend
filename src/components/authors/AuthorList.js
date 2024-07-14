@@ -10,10 +10,11 @@ function AuthorList(props) {
 
     let [data, setData] = useState([]);
     let [editId, setEditId] = useState(0);
+    let [editStat, setEditStat] = useState(false);
     let [delStat, setDelStat] = useState(0);
     let [authorName, setAuthorName] = useState("");
     let [authorBio, setAuthorBio] = useState("");
-    let [editStat, setEditStat] = useState(false);
+    
 
     const enableEdit = (id) =>{
         setEditId(editId = id)
@@ -55,23 +56,12 @@ function AuthorList(props) {
    
             setAuthorName(authorName = e.target.value)
             checkEditStatus();
-
-            // if (authorName==="")
-            //   setEditStat(false);
-            // else{
-            //   setEditStat(true);
-            // }
           }
 
           const handleBioChange = (e)=>{
    
             setAuthorBio(authorBio = e.target.value)
             checkEditStatus();
-            // if (authorBio==="")
-            //   setEditStat(false);
-            // else{
-            //   setEditStat(true);
-            // }
           }
         
         const checkEditStatus = ()=>{
@@ -154,14 +144,6 @@ function AuthorList(props) {
           
         ?
   
-        // <div className='d-flex flex-fill justify-content-between mt-1'>
-        //   <div className='flex-fill ms-4 '>
-        //   <input type="text" defaultValue={author.name} onChange={handleNameChange} autoFocus name="author" className='form-control'  />
-        //   {/* onBlur={()=>{updateAuthor(genre.genre_id)}} */}
-        //   </div>
-          
-        // </div>
-
         <div className='row mt-4'>
             <div className='col-sm-2'>
                 <input type="text" defaultValue={author.name} size={6} onChange={handleNameChange}  name="author" className='form-control'  />
@@ -193,17 +175,7 @@ function AuthorList(props) {
                 <MdDelete size={20} onClick={()=>{deleteAuthor(author.author_id)}} />
             </div>
         </div>
-        // <div className='d-flex flex-fill justify-content-between mt-1'>
-        //     <div className='flex-fill ms-4 '>{
-        //       genre.genre_name
-        //     }</div>
-        //     <div className='m-1'>
-        //       <AiFillEdit size={20} onClick={()=>{enableEdit(genre.genre_id)}}/>
-        //     </div>
-        //     <div className='m-1'>
-        //       <MdDelete size={20} onClick={()=>{deleteGenre(genre.genre_id)}} />
-        //     </div>
-        //   </div>
+      
         }
         </div>
       );

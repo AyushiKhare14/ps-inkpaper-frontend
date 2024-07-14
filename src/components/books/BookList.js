@@ -10,9 +10,10 @@ function BookList(props) {
   let [data, setData] = useState([]);
   let [delStat, setDelStat] = useState(0);
   let [editId, setEditId] = useState(0);
-  let [editStat, setEditStat] = useState(false);
+  //let [editStat, setEditStat] = useState(false);
   const [gdata, setGdata] = useState([]);
   const [adata, setAdata] = useState([]);
+  let [editedData, setEditedData] = useState({});
 
 
   const [editedTitle, setEditedTitle] = useState("");
@@ -61,10 +62,124 @@ function BookList(props) {
       }
   };
 
+  const handleBookEdit = async (id) => {
+    // const formdata = new FormData();
+
+    // if(editedTitle){
+    //   // let temp = {"title" : editedTitle}
+    //   // setEditedData(editedData = {...editedData, ...temp})
+    //   formdata.append("title", editedTitle);
+    // }
+
+    // if(editedPrice){
+    //   // let temp = {"price" : editedPrice}
+    //   // setEditedData(editedData = {...editedData, ...temp})
+    //   formdata.append("price", editedPrice);
+    // }
+
+    // if(editedPublicationDate){
+    //   // let temp = {"publication_date" : editedPublicationDate}
+    //   // setEditedData(editedData = {...editedData, ...temp})
+    //   formdata.append("publication_date", editedPublicationDate);
+    // }
+
+    // if(editedImage){
+    //   // let temp = {"image" : editedImage}
+    //   // setEditedData(editedData = {...editedData, ...temp})
+    //   formdata.append("image", editedImage);
+    // }
+
+    // if(editedAuthorId){
+    //   // let temp = {"author_id" : editedAuthorId}
+    //   // setEditedData(editedData = {...editedData, ...temp})
+    //   formdata.append("author_id", editedAuthorId);
+    // }
+
+    // if(editedGenreId){
+    //   // let temp = {"genre_id" : editedGenreId}
+    //   // setEditedData(editedData = {...editedData, ...temp})
+    //   formdata.append("genre_id", editedGenreId);
+    // }
+
+    // console.log(formdata)
+
+    // fetch("http://localhost:3000/api/book/" + id, {
+    //   method: "PUT",
+    //   body: JSON.stringify(formdata),
+    //   headers: {"Content-type": 
+    //             "application/json; charset=UTF-8"},
+    // })
+
+
+
+    const formdata = new FormData();
+
+    if (editedTitle) {
+        formdata.set("title", editedTitle);
+    }
+
+    if (editedPrice) {
+        formdata.set("price", editedPrice);
+    }
+
+    if (editedPublicationDate) {
+        formdata.set("publication_date", editedPublicationDate);
+    }
+
+    if (editedImage) {
+        formdata.append("image", editedImage); // For file uploads, use append
+    }
+
+    if (editedAuthorId) {
+        formdata.set("author_id", editedAuthorId);
+    }
+
+    if (editedGenreId) {
+        formdata.set("genre_id", editedGenreId);
+    }
+
+    try {
+        const response = await fetch(`http://localhost:3000/api/book/${id}`, {
+            method: "PUT",
+            body: formdata, // FormData object directly
+            // No need for JSON content type in headers for FormData
+        }); 
+        if (response.ok) {
+          setEditId(0);
+          // Optionally, refresh book list after successful edit
+          
+      } else {
+          throw new Error("Failed to update book");
+      }
+  } catch (error) {
+      console.error("Error updating book:", error);
+      // Handle error state here, e.g., show an alert
+      alert("Failed to update book. Please try again.");
+  }
+  //   .then(response => {
+  //     if (response.ok) {
+  //       setEditId(0);
+  //       //setEditStat(editStat=false);
+  //     }
+  //     else{
+  //         throw response;
+  //     }
+  // }) 
+  //   .catch(err => {
+  //     alert(err);
+  //   }); 
+
+    
+    
+}
+
+
+  
+
   // setting up the list
   useEffect(()=>{
     getAllBooks()
-  },[props, delStat])
+  },[props, delStat, editId])
 
 
   // Rending Data
@@ -119,7 +234,7 @@ function BookList(props) {
 
     <div className="">
       <div className='d-flex row mb-1'>
-          <div className='d-flex col-sm-6'>
+          <div className='d-flex col-sm-6 '>
               <div className='label col-sm-4'>
                   Book Name &nbsp;&nbsp;
               </div>
@@ -153,7 +268,9 @@ function BookList(props) {
                   <input type='date'
                       className='inputfield'
                       name='publication_date'
-                      defaultValue={book.publication_date}
+                      //defaultValue={book.publication_date}
+                      defaultValue={book.publication_date ? new Date(book.publication_date).toISOString().split('T')[0] : ''}
+               
                       onChange={(e) => setEditedPublicationDate(e.target.value)} />
               </div>
           </div>
@@ -224,6 +341,12 @@ function BookList(props) {
               </div>
           </div>
     </div>
+    <div className='d-flex justify-content-center mt-3'>
+        <button className='btn btn-secondary' onClick={()=>setEditId(0)}>Discard Update</button>
+        &nbsp;&nbsp;
+        <button className='btn btn-warning' onClick={()=>handleBookEdit(book.book_id)}>Update Book</button>
+        
+    </div>
      </div>               
             
     : 
@@ -255,6 +378,7 @@ function BookList(props) {
             <MdDelete size={20} onClick={()=>{deleteBook(book.book_id)}} />
             {/* onClick={()=>{deleteAuthor(author.author_id)}} */}
         </div>
+
     </div>
   
    } 
@@ -265,46 +389,11 @@ function BookList(props) {
 
   return (
     <div >
-    <div className='row mt-2 mb-2 booklistheader'>
-        
-        <div className='col-sm-1'>
-        Image
-        </div>
-
-        <div className='col-sm-2'>
-        Title
-        </div>
-
-        <div className='col-sm-1'>
-        Price
-        </div>
-
-        <div className='col-sm-2'>
-        Released On
-        </div>
-
-        <div className='col-sm-2'>
-            Author
-        </div>
-
-        <div className='col-sm-2'>
-            Genre
-        </div>
-
-        <div className='col-sm-1'>
-            ...
-        </div>
-        <div className='col-sm-1'>
-           ...
-            
-        </div>
-    </div>
-  
-   
     
-    <div>
-      {data.map(book => renderBook(book)) }
-    </div>
+    
+      <div>
+        {data.map(book => renderBook(book)) }
+      </div>
     </div>
   )
 }

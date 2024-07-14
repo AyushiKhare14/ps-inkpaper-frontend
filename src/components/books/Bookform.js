@@ -21,8 +21,6 @@ function Bookform({setBookAddStatus}) {
     const getAllGenres = async () => {
         try {
             const responseData = await fetch("http://localhost:3000/api/genre");
-            //const genres = await responseData.json();
-            //setGdata(genres.map((item) => ({ label: item.genre_name, id: item.genre_id })));
             setGdata(await responseData.json())
         } catch (error) {
             console.error('Error fetching genres:', error);

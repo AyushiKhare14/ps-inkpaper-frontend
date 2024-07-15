@@ -163,27 +163,27 @@ function BookList(props) {
   const handleBookEdit = async (id) => {
     const formdata = new FormData();
     if (editedTitle) {
-        setEditState(true)
+        
         formdata.set("title", editedTitle);
     }
     if (editedPrice) {
-        setEditState(true)
+       // setEditState(true)
         formdata.set("price", editedPrice);
     }
     if (editedPublicationDate) {
-        setEditState(true)
+        //setEditState(true)
         formdata.set("publication_date", editedPublicationDate);
     }
     if (editedImage) {
-        setEditState(true)
+        //setEditState(true)
         formdata.append("image", editedImage);
     }
     if (editedAuthorId) {
-        setEditState(true)
+        //setEditState(true)
         formdata.set("author_id", editedAuthorId);
     }
     if (editedGenreId) {
-        setEditState(true)
+        //setEditState(true)
         formdata.set("genre_id", editedGenreId);
     }
     console.log(formdata)
@@ -193,10 +193,12 @@ function BookList(props) {
     //         //setOpenEdit(true);
     //         return;
     // }
-    if(!editState){
-        setEditId(0);
-        return;
-    }
+    // console.log(editState)
+    // if(editState){
+    //     console.log("inside edit")
+    //     setEditId(0);
+    //     return;
+    // }
    
     try {
         const response = await fetch(`http://localhost:3000/api/book/${id}`, {
@@ -206,6 +208,7 @@ function BookList(props) {
         if (response.ok) {
             setEditId(0);
             setOpenEdit(true);
+            setEditState(false)
         } else {
             throw new Error("Failed to update book");
         }

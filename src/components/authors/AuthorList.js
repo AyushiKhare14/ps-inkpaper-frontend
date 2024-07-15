@@ -249,7 +249,7 @@ function AuthorList(props) {
         : data.map(author => renderAuthor(author))
       }
 
-      <Snackbar open={openEdit} autoHideDuration={4000} onClose={handleClose}>
+      <Snackbar open={openEdit} autoHideDuration={3000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
           severity="info"
@@ -260,7 +260,7 @@ function AuthorList(props) {
         </Alert>
       </Snackbar>
 
-      <Snackbar open={openDel} autoHideDuration={4000} onClose={handleClose}>
+      <Snackbar open={openDel} autoHideDuration={3000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
           severity="warning"

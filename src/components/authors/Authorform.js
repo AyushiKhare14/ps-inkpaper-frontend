@@ -1,6 +1,19 @@
 import React, {useState} from 'react'
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 function Authorform({setAuthorAddStatus}) {
+  const [open, setOpen] = React.useState(false);
+
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
     let [authorName, setAuthorName] = useState("");
     let [authorBio, setAuthorBio] = useState("");
 
@@ -38,16 +51,18 @@ function Authorform({setAuthorAddStatus}) {
       })
       .then(response => {
         if (response.ok) {
-        response.json()}
+        response.json()
+      }
         else{
-            throw new Error('Partially filled form cannot be submitted!');
+          throw new Error('Trouble while adding new author! Please make sure the author is not already present in the list.');
+
         }
     }) 
       .then(json => {
         setAuthorName("")
         setAuthorBio("")
         setAuthorAddStatus("Hello"+ Math.random())
-        
+        setOpen(true)
       })
       .catch(err => {
   
@@ -84,6 +99,16 @@ function Authorform({setAuthorAddStatus}) {
          </div>
   
       </div>
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Author Added Successfully!
+        </Alert>
+      </Snackbar>
       
       </>   
     )

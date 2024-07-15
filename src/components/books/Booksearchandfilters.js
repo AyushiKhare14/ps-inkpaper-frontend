@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import { FcAlphabeticalSortingAz } from "react-icons/fc";
-import { FcAlphabeticalSortingZa } from "react-icons/fc";
-import { MdOutlineInsertChartOutlined } from "react-icons/md";
+
 import { ImSortAlphaDesc } from "react-icons/im";
 import { HiSortDescending } from "react-icons/hi";
-import { HiOutlineSortDescending } from "react-icons/hi";
+
 import { ImSortAlphaAsc } from "react-icons/im";
 import { BsSortDownAlt } from "react-icons/bs";
 import { BsSortDown } from "react-icons/bs";
@@ -127,7 +125,7 @@ const getAllAuthors = async () => {
                                             },}}
                                         value={adata.find((option) => option.author_id === authorId) || null}
                                         onChange={(event, newValue) => {
-                                            setAuthorId(newValue ? newValue.author_id : null);
+                                          props.setFilterByAuthor(newValue ? newValue.author_id : null);
                                         }}
                                         renderInput={(params) => <TextField  {...params} label="Filter by Author" />}
                                     />
@@ -146,7 +144,7 @@ const getAllAuthors = async () => {
                                             },}}
                                         value={gdata.find((option) => option.genre_id === genreId) || null}
                                         onChange={(event, newValue) => {
-                                            setGenreId(newValue ? newValue.genre_id : null);
+                                            props.setFilterByGenre(newValue ? newValue.genre_id : null);
                                         }}
                                         renderInput={(params) => <TextField  {...params} label="Filter by Genre" />}
                                     />

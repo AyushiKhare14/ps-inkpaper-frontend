@@ -4,8 +4,22 @@ import { MdDelete } from "react-icons/md";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 //import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 function BookList(props) {
+
+    const [openEdit, setOpenEdit] = React.useState(false);
+    const [openDel, setOpenDel] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenEdit(false);
+    setOpenDel(false);
+  };
 
   let [data, setData] = useState([]);
   let [delStat, setDelStat] = useState(0);
@@ -126,6 +140,7 @@ function BookList(props) {
   const deleteBook = async (id)=>{
     await fetch('http://localhost:3000/api/book/' + id, { method: 'DELETE' });
            setDelStat(Math.random())
+           setOpenDel(true)
   }
 
   const getAllGenres = async () => {
@@ -185,6 +200,7 @@ function BookList(props) {
         }); 
         if (response.ok) {
           setEditId(0);
+          setOpenEdit(true)
           
           
       } else {
@@ -213,6 +229,19 @@ function BookList(props) {
     if(title.includes(toSearch)){
         return true;
     }})
+
+    let filteredAuthorData = data.filter(book => {
+        //let title = book.title.toUpperCase();
+        let author_id = props.filterByAuthor;
+        if(book.author_id === author_id){
+            return true;
+        }})
+
+    let filteredGenreData = data.filter( book =>{
+        let genre_id = props.filterByGenre;
+        if(book.genre_id === genre_id){
+            return true
+        }})
 
   // Rending Data
 
@@ -386,8 +415,33 @@ function BookList(props) {
       <div>
       {props.search 
       ? searchedData.map(book => renderBook(book))
-      : data.map(book => renderBook(book)) }
+      : props.filterByAuthor ? filteredAuthorData.map(book => renderBook(book)) :
+      props.filterByGenre ? filteredGenreData.map(book => renderBook(book)) :
+      data.map(book => renderBook(book)) }
       </div>
+
+      <Snackbar open={openEdit} autoHideDuration={4000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity="info"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Book Updated Successfully!
+        </Alert>
+      </Snackbar>
+
+      <Snackbar open={openDel} autoHideDuration={4000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity="warning"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Book Removed Successfully!
+        </Alert>
+      </Snackbar>
+
     </div>
   )
 }

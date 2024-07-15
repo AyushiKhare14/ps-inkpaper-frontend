@@ -11,6 +11,8 @@ function Books() {
   let [sortPublishedDate, setSortPublishedDate] = useState(0);
   let [sortBook, setSortBook] = useState(0);
   let [sortPrice, setSortPrice] = useState(0);
+  let [filterByAuthor, setFilterByAuthor] = useState(null);
+  let [filterByGenre, setFilterByGenre] = useState(null);
 
   return (
     <>
@@ -27,7 +29,10 @@ function Books() {
           setSearch={setSearch} 
           setSortPublishedDate={setSortPublishedDate} 
           setSortBook={setSortBook} 
-          setSortPrice={setSortPrice}/>
+          setSortPrice={setSortPrice}
+          setFilterByAuthor={setFilterByAuthor}
+          setFilterByGenre={setFilterByGenre}
+          />
         </div>
         {/* authorAddStatus={authorAddStatus} search={search} sortAuthor={sortAuthor} */}
         {/* <div className='divider mt-2'></div> */}
@@ -38,7 +43,10 @@ function Books() {
           search={search} 
           sortBook={sortBook} 
           sortPrice={sortPrice} 
-          sortPublishedDate={sortPublishedDate}/>
+          sortPublishedDate={sortPublishedDate}
+          filterByAuthor={filterByAuthor}
+          filterByGenre={filterByGenre}
+          />
         </div> 
 
       </div>

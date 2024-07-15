@@ -1,13 +1,25 @@
 import React, { useState } from 'react'
+import { successAlert } from '../../utils/alerts';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 function Genreform({setGenreAddStatus}) {
   let [genreName, setGenreName] = useState("");
+  const [open, setOpen] = React.useState(false);
 
 
   const handleGenreName=(e) =>{
     setGenreName(e.target.value)
     
   }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
     const handleGenreSubmit =()=>{
     if(genreName===""){
@@ -29,13 +41,14 @@ function Genreform({setGenreAddStatus}) {
       if (response.ok) {
       response.json()}
       else{
-          throw new Error('Partially filled form cannot be submitted!');
+          throw new Error('Trouble while adding new genre! Please make sure the genre is not already present in the list.');
       }
   }) 
     .then(json => {
       setGenreName("")
       setGenreAddStatus("Hello"+ Math.random())
       //alert("Genre Added Successfully");
+      setOpen(true);
     })
     .catch(err => {
 
@@ -53,7 +66,16 @@ function Genreform({setGenreAddStatus}) {
       <div>
         <button className="btn btn-dark ms-2"  onClick={handleGenreSubmit}>Add Genre</button>     
        </div>
-
+       <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Genre Added Successfully!
+        </Alert>
+      </Snackbar>
     </div>
     
     </>   

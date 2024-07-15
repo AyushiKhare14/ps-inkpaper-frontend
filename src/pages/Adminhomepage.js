@@ -1,64 +1,64 @@
-import React from 'react'
-import Header from '../components/common/Header'
-import Footer from '../components/common/Footer'
-import Leftsidebar from '../components/common/Leftsidebar'
-import { Outlet } from 'react-router-dom'
-import Displaycards from '../components/admin/Displaycards'
-import { useLocation } from 'react-router-dom';
-import Rightsidebar from '../components/common/Rightsidebar'
+// import React from 'react'
+// import Header from '../components/common/Header'
+// import Footer from '../components/common/Footer'
+// import Leftsidebar from '../components/common/Leftsidebar'
+// import { Outlet } from 'react-router-dom'
+// import Displaycards from '../components/admin/Displaycards'
+// import { useLocation } from 'react-router-dom';
+// import Rightsidebar from '../components/common/Rightsidebar'
 
 
-function Adminhomepage() {
-    let location = useLocation();
-    // console.log(location.pathname)
-  return (
-    <>
-        <div className='col-sm-12 '>
-            <Header />
-        </div>
-        <div className='container'>
-        <div className='row h-100' >
+// function Adminhomepage() {
+//     let location = useLocation();
+//     // console.log(location.pathname)
+//   return (
+//     <>
+//         <div className='col-sm-12 webpageheader'>
+//             <Header />
+//         </div>
+//         <div className='container'>
+//         <div className='row h-100' >
         
-            {/* Left side bar */}
-            <div className='col-sm-2 d-none d-sm-block ' >
-                <Leftsidebar />
-            </div>
+//             {/* Left side bar */}
+//             <div className='col-sm-2 d-none d-sm-block ' >
+//                 <Leftsidebar />
+//             </div>
 
-            {/* Middle section that will change. */}
-            <div className='col-12 col-sm-8 mt-4 main-container' >
-                <Displaycards/>
-                <hr></hr>
+//             {/* Middle section that will change. */}
+//             <div className='col-12 col-sm-8 mt-4 ' >
+//                 <Displaycards/>
+//                 <hr></hr>
 
-                {sessionStorage.getItem("loggedIn") === "true" 
-                ?
-                    <div className='col-12 '>
-                        <Outlet/>
-                    </div>
-                :
-                    <p className='text-center fw-bold fs-4 text-danger'>Please login to access portal.</p>}
+//                 {sessionStorage.getItem("loggedIn") === "true" 
+//                 ?
+//                     <div className='col-12 '>
+//                         <Outlet/>
+//                     </div>
+//                 :
+//                     <p className='text-center fw-bold fs-4 text-danger'>Please login to access portal.</p>}
     
-            </div>
+//             </div>
 
-            {/* Right side bars */}
+//             {/* Right side bars */}
             
-            <div className=' d-flex col-sm-2  d-none d-sm-block ' >
-                <Rightsidebar />
+//             <div className=' d-flex col-sm-2  d-none d-sm-block ' >
+//                 <Rightsidebar />
                 
-            </div>
-        </div>
-        </div>
+//             </div>
+//         </div>
+//         </div>
         
         
-        <div className=''>
-            <Footer />
-        </div>
-    </>
-  )
-}
+//         <div className=''>
+//             <Footer />
+//         </div>
+//     </>
+//   )
+// }
 
-export default Adminhomepage
+// export default Adminhomepage
 
-
+////////////////////////////////////
 
 // import React from 'react';
 // import Header from '../components/common/Header';
@@ -109,4 +109,59 @@ export default Adminhomepage
 // export default Adminhomepage;
 
 // // CSS for scrollable content (optional):
+
+
+
+import React from 'react';
+import Header from '../components/common/Header';
+import Footer from '../components/common/Footer';
+import Leftsidebar from '../components/common/Leftsidebar';
+import { Outlet } from 'react-router-dom';
+import Displaycards from '../components/admin/Displaycards';
+import Rightsidebar from '../components/common/Rightsidebar';
+
+function Adminhomepage() {
+  return (
+    <>
+      <div className='col-sm-12 '>
+        <Header />
+      </div>
+      <div className='container'>
+        <div className='row h-100'>
+          {/* Left side bar */}
+          <div className='col-sm-2 d-none d-sm-block sides'>
+            <Leftsidebar />
+          </div>
+
+          {/* Middle section that will change */}
+          <div className='col-12 col-sm-8 mt-4 scrollable-content'>
+            <Displaycards />
+            <hr />
+
+            {/* Use conditional rendering based on login status */}
+            {sessionStorage.getItem("loggedIn") === "true" ? (
+              <div className='col-12'>
+                <Outlet />
+              </div>
+            ) : (
+              <p className='text-center fw-bold fs-4 text-danger'>
+                Please login to access portal.
+              </p>
+            )}
+          </div>
+
+          {/* Right side bars */}
+          <div className='col-sm-2 d-flex d-none d-sm-block sides'>
+            <Rightsidebar />
+          </div>
+        </div>
+      </div>
+      <div>
+        <Footer />
+      </div>
+    </>
+  );
+}
+
+export default Adminhomepage;
 

@@ -59,10 +59,16 @@ function Bookform({setBookAddStatus}) {
 
     const handleBookSubmit = () => {
         //if(title==="" || price==="" || publicationDate==="" || image==="" || authorId=="" || genreId==""){
-            if(title==="" || price==="" || publicationDate==="" ){
+            if(title==="" || price==="" || publicationDate==="" || authorId=="" || genreId==""){
             alert("Incomplete form cannot be submitted!")
             return;
         }
+
+        if(!parseFloat(price)){
+            alert("Book price should be a numeric value!")
+            return;
+        }
+
     //     let bodyData = {
     //         "title": title,
     //         "price": parseFloat(price),

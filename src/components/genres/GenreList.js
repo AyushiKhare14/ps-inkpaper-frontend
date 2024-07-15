@@ -446,3 +446,204 @@ function GenreList(props) {
 
 export default GenreList;
 
+
+
+// //////////////////////////
+
+
+// import React, { useEffect, useState } from 'react';
+// import { AiFillEdit } from "react-icons/ai";
+// import { MdDelete } from "react-icons/md";
+// import Snackbar from '@mui/material/Snackbar';
+// import Alert from '@mui/material/Alert';
+// import Dialog from '@mui/material/Dialog';
+// import DialogActions from '@mui/material/DialogActions';
+// import DialogContent from '@mui/material/DialogContent';
+// import DialogContentText from '@mui/material/DialogContentText';
+// import DialogTitle from '@mui/material/DialogTitle';
+// import Button from '@mui/material/Button';
+
+// function GenreList(props) {
+//   const [openEdit, setOpenEdit] = useState(false);
+//   const [openDel, setOpenDel] = useState(false);
+//   const [data, setData] = useState([]);
+//   const [editId, setEditId] = useState(0);
+//   const [delStat, setDelStat] = useState(0);
+//   const [genreName, setGenreName] = useState("");
+//   const [editStat, setEditStat] = useState(false);
+//   const [confirmDelete, setConfirmDelete] = useState(null);
+
+//   const handleClose = (event, reason) => {
+//     if (reason === 'clickaway') {
+//       return;
+//     }
+//     setOpenEdit(false);
+//     setOpenDel(false);
+//   };
+
+//   const getAllGenres = async () => {
+//     const responseData = await fetch("http://localhost:3000/api/genre");
+//     const genres = await responseData.json();
+//     setData(genres);
+//     if (props.sortGenre === 1) {
+//       sortData(data);
+//     } else if (props.sortGenre === 2) {
+//       sortDataReverse(data);
+//     } else {
+//       setData(genres);
+//     }
+//   }
+
+//   const handleGenreChange = (e) => {
+//     setGenreName(e.target.value);
+//     setEditStat(e.target.value !== "");
+//   }
+
+//   const updateGenre = (id) => {
+//     if (editStat) {
+//       if (genreName === "") {
+//         alert("Cannot submit blank entry!");
+//         return;
+//       }
+//       const bodyData = {
+//         "genre_name": genreName,
+//       }
+//       fetch("http://localhost:3000/api/genre/" + id, {
+//         method: "PUT",
+//         body: JSON.stringify(bodyData),
+//         headers: { "Content-type": "application/json; charset=UTF-8" },
+//       })
+//         .then(response => {
+//           if (response.ok) {
+//             setEditId(0);
+//             setEditStat(false);
+//             setOpenEdit(true);
+//           } else {
+//             throw response;
+//           }
+//         })
+//         .catch(err => {
+//           alert(err);
+//         });
+//     } else {
+//       setEditId(0);
+//       setEditStat(false);
+//     }
+//   }
+
+//   const deleteGenre = (id) => {
+//     setConfirmDelete(id);
+//   };
+
+//   const handleDeleteConfirmed = () => {
+//     fetch(`http://localhost:3000/api/genre/${confirmDelete}`, { method: 'DELETE' })
+//       .then(response => {
+//         if (response.ok) {
+//           setDelStat(Math.random());
+//           setOpenDel(true);
+//         } else {
+//           throw new Error('Failed to delete genre');
+//         }
+//       })
+//       .catch(error => {
+//         alert('Failed to delete genre, since it is part of a book entry. Kindly delete the associated book entry first.');
+//       });
+//     setConfirmDelete(null); // Clear confirmation state
+//   }
+
+//   useEffect(() => {
+//     getAllGenres();
+//   }, [delStat, props, editStat]);
+
+//   const sortData = (data) => {
+//     data.sort(function (a, b) {
+//       return a.genre_name.localeCompare(b.genre_name);
+//     });
+//   }
+
+//   const sortDataReverse = (data) => {
+//     data.sort(function (a, b) {
+//       return b.genre_name.localeCompare(a.genre_name);
+//     });
+//   }
+
+//   let searchedData = data.filter(genre => {
+//     let genreName = genre.genre_name.toUpperCase();
+//     let toSearch = props.search.toUpperCase();
+//     return genreName.includes(toSearch);
+//   });
+
+//   const renderGenres = (genre) => (
+//     <div className='d-flex genretext' key={genre.genre_id}>
+//       {editId === genre.genre_id ?
+//         <div className='d-flex flex-fill justify-content-between mt-1'>
+//           <div className='flex-fill ms-4 '>
+//             <input type="text" defaultValue={genre.genre_name} onChange={handleGenreChange} autoFocus name="genre" className='form-control' onBlur={() => { updateGenre(genre.genre_id) }} />
+//           </div>
+//         </div>
+//         :
+//         <div className='d-flex flex-fill justify-content-between mt-1'>
+//           <div className='flex-fill ms-4 '>
+//             {genre.genre_name}
+//           </div>
+//           <div className='m-1'>
+//             <AiFillEdit size={20} onClick={() => { setEditId(genre.genre_id) }} />
+//           </div>
+//           <div className='m-1'>
+//             <MdDelete size={20} onClick={() => deleteGenre(genre.genre_id)} />
+//           </div>
+//         </div>
+//       }
+//     </div>
+//   );
+
+//   return (
+//     <div>
+//       {props.search ?
+//         searchedData.map(genre => renderGenres(genre)) :
+//         data.map(genre => renderGenres(genre))
+//       }
+//       <Dialog
+//         open={confirmDelete !== null}
+//         onClose={() => setConfirmDelete(null)}
+//       >
+//         <DialogTitle>Delete Confirmation</DialogTitle>
+//         <DialogContent>
+//           <DialogContentText>
+//             Are you sure you want to delete this genre?
+//           </DialogContentText>
+//         </DialogContent>
+//         <DialogActions>
+//           <Button className='btn btn-secondary' onClick={() => setConfirmDelete(null)} >
+//             Cancel
+//           </Button>
+//           <Button className='btn btn-danger' onClick={handleDeleteConfirmed} color="secondary">
+//             Confirm Delete
+//           </Button>
+//         </DialogActions>
+//       </Dialog>
+//       <Snackbar open={openEdit} autoHideDuration={4000} onClose={handleClose}>
+//         <Alert
+//           onClose={handleClose}
+//           severity="info"
+//           variant="filled"
+//           sx={{ width: '100%' }}
+//         >
+//           Genre Updated Successfully!
+//         </Alert>
+//       </Snackbar>
+//       <Snackbar open={openDel} autoHideDuration={4000} onClose={handleClose}>
+//         <Alert
+//           onClose={handleClose}
+//           severity="warning"
+//           variant="filled"
+//           sx={{ width: '100%' }}
+//         >
+//           Genre Removed Successfully!
+//         </Alert>
+//       </Snackbar>
+//     </div>
+//   )
+// }
+
+// export default GenreList;

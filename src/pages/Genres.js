@@ -12,7 +12,7 @@ function Genres() {
   let [sortGenre, setSortGenre] = useState(0);
 
   return (
-    <>
+     <>
       <div className='genres d-flex flex-column'>
         <div>
           <Genreheader />
@@ -31,7 +31,9 @@ function Genres() {
         </div>
 
       </div>
-    </>
+    </> 
+    
+
   )
 }
 

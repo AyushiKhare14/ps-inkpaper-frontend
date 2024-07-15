@@ -28,9 +28,15 @@ function Adminhomepage() {
             <div className='col-12 col-sm-8 mt-4 main-container' >
                 <Displaycards/>
                 <hr></hr>
-                <div className='col-12 '>
-                    <Outlet/>
-                </div>
+
+                {sessionStorage.getItem("loggedIn") === "true" 
+                ?
+                    <div className='col-12 '>
+                        <Outlet/>
+                    </div>
+                :
+                    <p className='text-center fw-bold fs-4 text-danger'>Please login to access portal.</p>}
+    
             </div>
 
             {/* Right side bars */}

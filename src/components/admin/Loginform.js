@@ -18,6 +18,7 @@ function Loginform() {
         }
 
         else if(username == "admin" || password== "admin"){
+            sessionStorage.setItem("loggedIn", "true")
             navigate("/adminhomepage/home");
         }
 

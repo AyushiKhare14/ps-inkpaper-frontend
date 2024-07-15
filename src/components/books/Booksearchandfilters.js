@@ -13,7 +13,9 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 function Booksearchandfilters(props) {
-  let [clickCounter, setClickCounter] = useState(0);
+  let [bookSortCounter, setBookSortCounter] = useState(0);
+  let [priceSortCounter, setPriceSortCounter] = useState(0);
+  let [pdateSortCounter, setPdateSortCounter] = useState(0);
 
   const [gdata, setGdata] = useState([]);
   const [adata, setAdata] = useState([]);
@@ -49,28 +51,67 @@ const getAllAuthors = async () => {
     props.setSearch(e.target.value);
   }
 
-  const handleSort = ()=>{
+  const handleBookSort = ()=>{
       
-    setClickCounter(clickCounter=clickCounter+1) 
+    setBookSortCounter(bookSortCounter=bookSortCounter+1) 
 
-    if(clickCounter == 1){
-      props.setSortAuthor(1)
+    if(bookSortCounter == 1){
+      props.setSortBook(1)
     }
-    else if(clickCounter ==2){
-      props.setSortAuthor(2)
+    else if(bookSortCounter ==2){
+      props.setSortBook(2)
     }
     else{
-      setClickCounter(0);
-      props.setSortAuthor(0)
+      setBookSortCounter(0);
+      props.setSortBook(0)
     }
     
   }
+
+  const handlePriceSort =()=>{
+    setPriceSortCounter(priceSortCounter=priceSortCounter+1) 
+
+    if(priceSortCounter == 1){
+      props.setSortPrice(1)
+    }
+    else if(priceSortCounter ==2){
+      props.setSortPrice(2)
+    }
+    else{
+      setPriceSortCounter(0);
+      props.setSortPrice(0)
+    }
+  }
+
+  const handleDateSort = ()=>{
+    setPdateSortCounter(pdateSortCounter=pdateSortCounter+1) 
+
+    if(pdateSortCounter == 1){
+      props.setSortPublishedDate(1)
+    }
+    else if(pdateSortCounter ==2){
+      props.setSortPublishedDate(2)
+    }
+    else{
+      setPdateSortCounter(0);
+      props.setSortPublishedDate(0)
+    }
+ }
+
 
   return (
     <div>
       <div className='d-flex justify-content-around mt-2 '>
         <div className='flex-fill p-1'>
-        <input  type='text' placeholder='Search Book...' className="form-control" onInput={handleSearch} />
+        {/* <input  type='text' placeholder='Search Book...' className="form-control" onInput={handleSearch} /> */}
+        <TextField 
+        onInput={handleSearch} 
+        label="Search by book title..." 
+        sx={{ width: '100%',
+          '& .MuiInputBase-root': {
+              height: '38px', // Adjust input height as needed
+             
+          },}}/>
         </div>
       
         <div className='p-1'>
@@ -121,24 +162,24 @@ const getAllAuthors = async () => {
         </div>
 
         <div className='col-sm-2'>
-        Title  {clickCounter == 0 ? 
-        <ImSortAlphaAsc  color='white' size={15} onClick={handleSort}/> : 
-        (clickCounter==1 ? <ImSortAlphaDesc color='white' size={15} onClick={handleSort}/> : <HiSortDescending color='white' size={15} onClick={handleSort} />)}
+        Title  {bookSortCounter == 0 ? 
+        <ImSortAlphaAsc  color='white' size={15} onClick={handleBookSort}/> : 
+        (bookSortCounter==1 ? <ImSortAlphaDesc color='white' size={15} onClick={handleBookSort}/> : <HiSortDescending color='white' size={15} onClick={handleBookSort} />)}
 
         </div>
         
 
         <div className='col-sm-1'>
-        ₹  {clickCounter == 0 ? 
-        <BsSortDownAlt  color='white' size={18} onClick={handleSort}/> : 
-        (clickCounter==1 ? <BsSortDown color='white' size={18} onClick={handleSort}/> : <HiSortDescending color='white' size={15} onClick={handleSort} />)}
+        ₹  {priceSortCounter == 0 ? 
+        <BsSortDownAlt  color='white' size={18} onClick={handlePriceSort}/> : 
+        (priceSortCounter==1 ? <BsSortDown color='white' size={18} onClick={handlePriceSort}/> : <HiSortDescending color='white' size={15} onClick={handlePriceSort} />)}
 
         </div>
 
         <div className='col-sm-2'>
-        Released On  {clickCounter == 0 ? 
-        <TiArrowUnsorted  color='white' size={15} onClick={handleSort}/> : 
-        (clickCounter==1 ? <TiArrowUnsorted  color='white' size={15} onClick={handleSort}/> : <HiSortDescending color='white' size={15} onClick={handleSort} />)}
+        Released On  {pdateSortCounter == 0 ? 
+        <TiArrowUnsorted  color='white' size={15} onClick={handleDateSort}/> : 
+        (pdateSortCounter==1 ? <TiArrowUnsorted  color='white' size={15} onClick={handleDateSort}/> : <HiSortDescending color='white' size={15} onClick={handleDateSort} />)}
 
         </div>
 

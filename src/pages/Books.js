@@ -8,7 +8,7 @@ import Booksearchandfilters from '../components/books/Booksearchandfilters'
 function Books() {
   let [bookAddStatus, setBookAddStatus] = useState("")
   let [search, setSearch] = useState("")
-  let [sortAuthor, setSortAuthor] = useState(0);
+  let [sortPublishedDate, setSortPublishedDate] = useState(0);
   let [sortBook, setSortBook] = useState(0);
   let [sortPrice, setSortPrice] = useState(0);
 
@@ -25,7 +25,7 @@ function Books() {
         <div className=''>
           <Booksearchandfilters 
           setSearch={setSearch} 
-          setSortAuthor={setSortAuthor} 
+          setSortPublishedDate={setSortPublishedDate} 
           setSortBook={setSortBook} 
           setSortPrice={setSortPrice}/>
         </div>
@@ -33,7 +33,12 @@ function Books() {
         {/* <div className='divider mt-2'></div> */}
         {/* <hr></hr> */}
         <div>
-          <BookList bookAddStatus={bookAddStatus} />
+          <BookList 
+          bookAddStatus={bookAddStatus} 
+          search={search} 
+          sortBook={sortBook} 
+          sortPrice={sortPrice} 
+          sortPublishedDate={sortPublishedDate}/>
         </div> 
 
       </div>

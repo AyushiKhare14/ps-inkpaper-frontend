@@ -41,9 +41,10 @@ function Leftsidebar() {
                 <p><CiMail /> support@inkandpapers.com</p>
                 </div>
 
-                
-                <Link to="/"><button className='logoutbtn'>Logout</button></Link>
+                {sessionStorage.getItem("loggedIn") === "true" 
+                ?<Link to="/"><button className='logoutbtn' onClick={()=>sessionStorage.clear()}>Logout</button></Link>
 
+                :<Link to="/"><button className='logoutbtn' >Login</button></Link>}
             </div>
 
 

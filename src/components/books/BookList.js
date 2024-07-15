@@ -33,8 +33,96 @@ function BookList(props) {
     const responseData = await fetch("http://localhost:3000/api/book");
     const books =  await responseData.json();
     setData(data = books);
-  }
 
+    // if (props.sortBook===1){
+        
+    //     sortData(data);
+    // }
+    // else if (props.sortBook===2){
+    //     sortDataReverse(data);
+    // }
+    // else{
+    //     setData(data = books);
+    // }
+
+    // props.sortPrice ===1 ? sortPrice(data) : props.sortPrice ===2 ? sortPriceReverse(data) : setData(data = books);
+
+
+    //Sorting methods
+
+  //By title
+  const sortData = (data) =>{
+    data.sort(function(a, b) {
+      return a.title.localeCompare(b.title);
+    });
+  }
+  const sortDataReverse = (data) =>{
+    data.sort(function(a, b) {
+      return b.title.localeCompare(a.title);
+    });}
+
+    //By Price
+  
+    const sortPrice = (data) =>{
+        data.sort(function(a, b) {
+          //return a.price.localeCompare(b.price);
+          return a.price - b.price;
+        });
+      }
+      const sortPriceReverse = (data) =>{
+        data.sort(function(a, b) {
+          //return b.price.localeCompare(a.price);
+          return b.price - a.price;
+        });}
+
+
+    // By Published date
+
+    const sortPDate = (data) =>{
+        console.log("inside sort")
+        data.sort(function(a, b) {
+          //return a.published_date.localeCompare(b.published_date);
+          return new Date(a.published_date) - new Date(b.published_date);
+        });
+      }
+      const sortPDateReverse = (data) =>{
+        data.sort(function(a, b) {
+            console.log("inside sort rev")
+          //return b.published_date.localeCompare(a.published_date);
+          return new Date(b.published_date) - new Date(a.published_date);
+        });}
+
+        if (props.sortBook===1){
+        
+            sortData(data);
+        }
+        else if (props.sortBook===2){
+            sortDataReverse(data);
+        }
+        else{
+            setData(data = books);
+        }
+    
+        props.sortPrice ===1 ? sortPrice(data) : props.sortPrice ===2 ? sortPriceReverse(data) : setData(data = books);
+    
+        props.sortPublishedDate === 1 ? sortPDate(data) : props.sortPublishedDate === 2 ? sortPDateReverse(data) : setData(data = books);
+
+
+    }
+
+    // const sortData = (data) =>{
+    //     data.sort(function(a, b) {
+    //       return a.title.localeCompare(b.title);
+    //     });
+    //   }
+    //   const sortDataReverse = (data) =>{
+    //     data.sort(function(a, b) {
+    //       return b.title.localeCompare(a.title);
+    //     });
+
+  
+
+  
   const deleteBook = async (id)=>{
     await fetch('http://localhost:3000/api/book/' + id, { method: 'DELETE' });
            setDelStat(Math.random())
@@ -63,54 +151,6 @@ function BookList(props) {
   };
 
   const handleBookEdit = async (id) => {
-    // const formdata = new FormData();
-
-    // if(editedTitle){
-    //   // let temp = {"title" : editedTitle}
-    //   // setEditedData(editedData = {...editedData, ...temp})
-    //   formdata.append("title", editedTitle);
-    // }
-
-    // if(editedPrice){
-    //   // let temp = {"price" : editedPrice}
-    //   // setEditedData(editedData = {...editedData, ...temp})
-    //   formdata.append("price", editedPrice);
-    // }
-
-    // if(editedPublicationDate){
-    //   // let temp = {"publication_date" : editedPublicationDate}
-    //   // setEditedData(editedData = {...editedData, ...temp})
-    //   formdata.append("publication_date", editedPublicationDate);
-    // }
-
-    // if(editedImage){
-    //   // let temp = {"image" : editedImage}
-    //   // setEditedData(editedData = {...editedData, ...temp})
-    //   formdata.append("image", editedImage);
-    // }
-
-    // if(editedAuthorId){
-    //   // let temp = {"author_id" : editedAuthorId}
-    //   // setEditedData(editedData = {...editedData, ...temp})
-    //   formdata.append("author_id", editedAuthorId);
-    // }
-
-    // if(editedGenreId){
-    //   // let temp = {"genre_id" : editedGenreId}
-    //   // setEditedData(editedData = {...editedData, ...temp})
-    //   formdata.append("genre_id", editedGenreId);
-    // }
-
-    // console.log(formdata)
-
-    // fetch("http://localhost:3000/api/book/" + id, {
-    //   method: "PUT",
-    //   body: JSON.stringify(formdata),
-    //   headers: {"Content-type": 
-    //             "application/json; charset=UTF-8"},
-    // })
-
-
 
     const formdata = new FormData();
 
@@ -141,36 +181,20 @@ function BookList(props) {
     try {
         const response = await fetch(`http://localhost:3000/api/book/${id}`, {
             method: "PUT",
-            body: formdata, // FormData object directly
-            // No need for JSON content type in headers for FormData
+            body: formdata, 
         }); 
         if (response.ok) {
           setEditId(0);
-          // Optionally, refresh book list after successful edit
+          
           
       } else {
           throw new Error("Failed to update book");
       }
   } catch (error) {
       console.error("Error updating book:", error);
-      // Handle error state here, e.g., show an alert
+      
       alert("Failed to update book. Please try again.");
-  }
-  //   .then(response => {
-  //     if (response.ok) {
-  //       setEditId(0);
-  //       //setEditStat(editStat=false);
-  //     }
-  //     else{
-  //         throw response;
-  //     }
-  // }) 
-  //   .catch(err => {
-  //     alert(err);
-  //   }); 
-
-    
-    
+  }    
 }
 
 
@@ -181,6 +205,14 @@ function BookList(props) {
     getAllBooks()
   },[props, delStat, editId])
 
+  //Searched data
+
+  let searchedData = data.filter(book => {
+    let title = book.title.toUpperCase();
+    let toSearch = props.search.toUpperCase();
+    if(title.includes(toSearch)){
+        return true;
+    }})
 
   // Rending Data
 
@@ -191,46 +223,6 @@ function BookList(props) {
     {editId == book.book_id 
       
     ?
-    // {setEditedAuthorId(editedAuthorId=book.author_id);
-    // setEditedGenreId(editedGenreId=book.genre_id)}
-    // <div className='row mt-2 mb-2 d-flex align-items-center text-center'>
-    //     <div className='col-sm-1'>
-    //       <input type='file'
-    //         className='inputfield'
-    //         name='image'
-    //         onChange={(e)=>setEditedImage(e.target.files[0])} />
-    //     </div>
-    //     <div className='col-sm-2 '>
-    //       <input type='text'
-    //         name='title'
-    //         className='inputfield'
-    //         defaultValue={book.title}
-    //         onChange={(e) => setEditedTitle(e.target.value)} />
-    //     </div>
-    //     <div className='col-sm-1'>
-    //     &nbsp; {book.price}
-    //     </div>
-    //     <div className='col-sm-2'>
-    //     &nbsp; {String(book.publication_date).slice(0, 10)}
-    //     </div>
-    //     <div className='col-sm-2'>
-    //         {book.Author.name}
-    //     </div>
-    //     <div className='col-sm-2'>
-    //         {book.Genre.genre_name}
-    //     </div>
-    //     <div className='col-sm-1'>
-    //         <AiFillEdit size={20} onClick={()=>{enableEdit(book.book_id)}} />
-    //         {/* onClick={()=>{enableEdit(author.author_id)}} */}
-    //     </div>
-    //     <div className='col-sm-1'>
-    //         <MdDelete size={20} onClick={()=>{deleteBook(book.book_id)}} />
-    //         {/* onClick={()=>{deleteAuthor(author.author_id)}} */}
-    //     </div>
-    // </div>
-
-
-    ///////////////////////////
 
     <div className="">
       <div className='d-flex row mb-1'>
@@ -392,7 +384,9 @@ function BookList(props) {
     
     
       <div>
-        {data.map(book => renderBook(book)) }
+      {props.search 
+      ? searchedData.map(book => renderBook(book))
+      : data.map(book => renderBook(book)) }
       </div>
     </div>
   )

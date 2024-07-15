@@ -55,6 +55,16 @@
 //     }
 //   }
 
+//   const sortData = (data) =>{
+//     data.sort(function(a, b) {
+//       return a.genre_name.localeCompare(b.genre_name);
+//     });
+//   }
+//   const sortDataReverse = (data) =>{
+//     data.sort(function(a, b) {
+//       return b.genre_name.localeCompare(a.genre_name);
+//     });}
+
 
 //   const handleGenreChange = (e)=>{
    
@@ -137,15 +147,7 @@
 //     },[ delStat, props, editStat])
 
 
-//   const sortData = (data) =>{
-//     data.sort(function(a, b) {
-//       return a.genre_name.localeCompare(b.genre_name);
-//     });
-//   }
-//   const sortDataReverse = (data) =>{
-//     data.sort(function(a, b) {
-//       return b.genre_name.localeCompare(a.genre_name);
-//     });}
+
 
 //     // Getting searched genre name
 
@@ -284,12 +286,27 @@ function GenreList(props) {
     const genres = await responseData.json();
     setData(genres);
     if (props.sortGenre === 1) {
-      sortData(data);
+      console.log("inside 1")
+      sortData(genres);
     } else if (props.sortGenre === 2) {
-      sortDataReverse(data);
+      sortDataReverse(genres);
     } else {
       setData(genres);
     }
+  }
+
+  const sortData = (data) => {
+    console.log("inside sort")
+    console.log(data)
+    data.sort(function (a, b) {
+      return a.genre_name.localeCompare(b.genre_name);
+    });
+  }
+
+  const sortDataReverse = (data) => {
+    data.sort(function (a, b) {
+      return b.genre_name.localeCompare(a.genre_name);
+    });
   }
 
   const handleGenreChange = (e) => {
@@ -353,17 +370,7 @@ function GenreList(props) {
     getAllGenres();
   }, [delStat, props, editStat]);
 
-  const sortData = (data) => {
-    data.sort(function (a, b) {
-      return a.genre_name.localeCompare(b.genre_name);
-    });
-  }
-
-  const sortDataReverse = (data) => {
-    data.sort(function (a, b) {
-      return b.genre_name.localeCompare(a.genre_name);
-    });
-  }
+  
 
   let searchedData = data.filter(genre => {
     let genreName = genre.genre_name.toUpperCase();

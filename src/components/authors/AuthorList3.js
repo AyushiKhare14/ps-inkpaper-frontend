@@ -7,7 +7,6 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
 
 function AuthorList(props) {
   const [openEdit, setOpenEdit] = useState(false);
@@ -21,8 +20,7 @@ function AuthorList(props) {
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedAuthor, setSelectedAuthor] = useState(null);
-  let [bookData, setBookData] = useState([]);
-  let [booksByAuthor, setBooksByAuthor] = useState([]);
+  const [booksByAuthor, setBooksByAuthor] = useState([]);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -35,23 +33,6 @@ function AuthorList(props) {
   const enableEdit = (id) => {
     setEditId(id);
   }
-
-  const getAllBooks = async (author) => {
-    try {
-      const responseData = await fetch("http://localhost:3000/api/book");
-      const books = await responseData.json();
-      setBookData(bookData=books);
-      console.log(bookData)
-      let booksByAuthor = bookData.filter(book => {
-        return book.author_id == author.author_id;
-      });
-      setBooksByAuthor(booksByAuthor)
-      console.log(booksByAuthor)
-      
-    } catch (error) {
-      console.error('Error fetching books:', error);
-    }
-  };
 
   const getAllAuthors = async () => {
     const responseData = await fetch("http://localhost:3000/api/author");
@@ -67,15 +48,11 @@ function AuthorList(props) {
   }
 
   const sortData = (data) => {
-    data.sort(function (a, b) {
-      return a.name.localeCompare(b.name);
-    });
+    data.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   const sortDataReverse = (data) => {
-    data.sort(function (a, b) {
-      return b.name.localeCompare(a.name);
-    });
+    data.sort((a, b) => b.name.localeCompare(a.name));
   }
 
   const handleNameChange = (e) => {
@@ -103,10 +80,6 @@ function AuthorList(props) {
       }
       if (authorBio === "") {
         setAuthorBio(bio);
-      }
-      if (authorBio.length > 256){
-        alert("Author bio should be less than 256 characrters!");
-        return;
       }
       const bodyData = {
         "name": authorName,
@@ -167,37 +140,28 @@ function AuthorList(props) {
     return authorName.includes(toSearch) || authorBio.includes(toSearch);
   });
 
-  // Open drawer with author details
-  const openDrawer =  (author) => {
-    getAllBooks(author);
-    //console.log(bookData)
-    // let booksByAuthor = bookData.filter(book => {
-    //     return book.author_id == author.author_id;
-    //   });
-    //   setBooksByAuthor(booksByAuthor)
-    //   console.log(booksByAuthor)
+  const openDrawer = (author) => {
     setSelectedAuthor(author);
+    setBooksByAuthor(author.booksByAuthor); // Assuming booksByAuthor is part of the author object
     setDrawerOpen(true);
-  };
+  }
 
-  // Close drawer
   const closeDrawer = () => {
     setDrawerOpen(false);
-    setSelectedAuthor(null);
-  };
+  }
 
   // Rendering Data
   const renderAuthor = (author) => (
     <div className='genretext' key={author.author_id}>
       {editId === author.author_id ?
-        <div className='row' >
-          <div className='col-sm-2' >
+        <div className='row'>
+          <div className='col-sm-2'>
             <input type="text" defaultValue={author.name} size={6} onChange={handleNameChange} name="author" className='form-control' />
           </div>
-          <div className='col-sm-8 ' >
+          <div className='col-sm-8'>
             <textarea defaultValue={author.biography} onChange={handleBioChange} name="bio" className='form-control'></textarea>
           </div>
-          <div className='col-sm-1 mt-3 '>
+          <div className='col-sm-1 mt-3'>
             <IoCheckmarkDoneCircle size={25} color='green' onClick={() => { updateAuthor(author.author_id, author.name, author.biography) }} />
           </div>
           <div className='col-sm-1 mt-3'>
@@ -205,11 +169,11 @@ function AuthorList(props) {
           </div>
         </div>
         :
-        <div className='row mt-2 mb-2' >
-          <div className='col-sm-2'>
+        <div className='row mt-2 mb-2'>
+          <div className='col-sm-2' onClick={() => openDrawer(author)}>
             &nbsp; {author.name}
           </div>
-          <div className='col-sm-8' onClick={() => openDrawer(author)}>
+          <div className='col-sm-8'>
             {author.biography}
           </div>
           <div className='col-sm-1'>
@@ -283,20 +247,14 @@ function AuthorList(props) {
               <p>{selectedAuthor.biography}</p>
 
               <h5>Books by {selectedAuthor.name}</h5>
-              <hr></hr>
               {booksByAuthor && booksByAuthor.length > 0 ? (
                 booksByAuthor.map((book) => (
-                  <div className='p-2'>
-                    
-                  <h6  key={book.title}>{book.title}</h6>
-                  <p className='text-secondary xyz'>{book.Genre.genre_name}  ₹{book.price}</p>
-                  </div>
+                  <h6 key={book.title}>{book.title}</h6>
                 ))
               ) : (
                 <p>No books available</p>
               )}
-              <hr></hr>
-              <Button color='warning' onClick={closeDrawer}>Close</Button>
+              <Button onClick={closeDrawer}>Close</Button>
             </div>
           )}
         </div>

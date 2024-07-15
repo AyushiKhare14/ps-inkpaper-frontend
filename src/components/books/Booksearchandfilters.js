@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 
 import { ImSortAlphaDesc } from "react-icons/im";
 import { HiSortDescending } from "react-icons/hi";
+import { FcClearFilters } from "react-icons/fc";
 
 import { ImSortAlphaAsc } from "react-icons/im";
 import { BsSortDownAlt } from "react-icons/bs";
@@ -14,11 +15,18 @@ function Booksearchandfilters(props) {
   let [bookSortCounter, setBookSortCounter] = useState(0);
   let [priceSortCounter, setPriceSortCounter] = useState(0);
   let [pdateSortCounter, setPdateSortCounter] = useState(0);
-
+  
+  let [searchStr, setSearchStr] = useState("")
   const [gdata, setGdata] = useState([]);
   const [adata, setAdata] = useState([]);
   const [authorId, setAuthorId] = useState("");
   const [genreId, setGenreId] = useState(""); 
+
+  const handleClearFilters =()=>{
+    props.setFilterByAuthor(null);
+    props.setFilterByGenre(null);
+    props.setSearch("");
+  }
 
   useEffect(() => {
     getAllGenres();
@@ -46,6 +54,7 @@ const getAllAuthors = async () => {
 };
 
   function handleSearch(e){
+    //setSearchStr(e.target.value)
     props.setSearch(e.target.value);
   }
 
@@ -105,6 +114,8 @@ const getAllAuthors = async () => {
         <TextField 
         onInput={handleSearch} 
         label="Search by book title..." 
+        //value={searchStr}
+        //onChange={handleSearch}
         sx={{ width: '100%',
           '& .MuiInputBase-root': {
               height: '38px', // Adjust input height as needed
@@ -150,6 +161,10 @@ const getAllAuthors = async () => {
                                     />
 
         </div>
+        <div>
+        <FcClearFilters size={35} color='black' className='pt-1' onClick={handleClearFilters}/>
+
+        </div>
 
     </div>
 
@@ -175,10 +190,7 @@ const getAllAuthors = async () => {
         </div>
 
         <div className='col-sm-2'>
-        Released On  {pdateSortCounter == 0 ? 
-        <TiArrowUnsorted  color='white' size={15} onClick={handleDateSort}/> : 
-        (pdateSortCounter==1 ? <TiArrowUnsorted  color='white' size={15} onClick={handleDateSort}/> : <HiSortDescending color='white' size={15} onClick={handleDateSort} />)}
-
+        Released On  
         </div>
 
         <div className='col-sm-2'>

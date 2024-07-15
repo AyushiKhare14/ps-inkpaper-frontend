@@ -159,6 +159,11 @@
     height: 90px;
 }
 
+.bookimg2{
+    width: 200px;
+    height: 300px;
+}
+
 .webpageheader{
     position: fixed;
     top: 0;
@@ -179,4 +184,12 @@
     box-sizing: "border-box";
     border-radius: 5px;
     border-color: rgb(242, 239, 239);
+  }
+
+  .xyz{
+    font-size: small;
+  }
+
+  .abc{
+    font-size: small;
   }
